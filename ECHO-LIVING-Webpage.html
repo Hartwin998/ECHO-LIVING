@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECHO LIVING | Technology That Cares Quietly</title>
+    <style>
+        :root {
+            --bg-dark: #0a0c10;
+            --bg-light: #161a23;
+            --accent-warm: #e6b280;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --neon-blue: #38bdf8;
+            --neon-pink: #f43f5e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 4%;
+            position: absolute;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            color: #fff;
+        }
+
+        .logo span {
+            color: var(--accent-warm);
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-warm);
+        }
+
+        /* Hero Section */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+            background: radial-gradient(circle at center, #1e2330 0%, var(--bg-dark) 70%);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 4rem;
+            font-weight: 200;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--accent-warm);
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 6rem 4%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid #2e3748;
+            padding-bottom: 1rem;
+        }
+
+        /* Manifesto Box */
+        .manifesto-box {
+            background-color: var(--bg-light);
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid #232b3c;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem auto;
+        }
+
+        .manifesto-text {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: var(--text-main);
+            line-height: 2;
+        }
+
+        .manifesto-highlight {
+            color: var(--accent-warm);
+            font-weight: 400;
+            display: block;
+            margin-top: 1.5rem;
+        }
+
+        /* Narrative Introduction Section */
+        .intro-story-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6rem;
+            margin-top: 3rem;
+        }
+
+        .story-phase {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .story-phase.phase-sanctuary {
+            grid-template-columns: 1fr 1.2fr;
+        }
+
+        .story-image-container {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #232b3c;
+            aspect-ratio: 16 / 10;
+            background: #11141b;
+        }
+
+        .story-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+            transition: transform 0.5s ease;
+        }
+
+        .story-image-container:hover .story-img {
+            transform: scale(1.03);
+        }
+
+        .image-overlay-label {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(244, 63, 94, 0.2);
+            border: 1px solid var(--neon-pink);
+            color: #fff;
+            padding: 0.4rem 1rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border-radius: 4px;
+            backdrop-filter: blur(4px);
+        }
+
+        .image-overlay-label.warm-label {
+            background: rgba(230, 178, 128, 0.2);
+            border: 1px solid var(--accent-warm);
+            color: var(--accent-warm);
+        }
+
+        .story-text h3 {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .user-meta {
+            color: var(--neon-blue);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .user-meta-warm {
+            color: var(--accent-warm);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .narrative-prose {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .pain-points, .pleasure-points {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .text-right .pleasure-points {
+            justify-content: flex-end;
+        }
+
+        .pain-points span {
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #ff8a9a;
+        }
+
+        .pleasure-points span {
+            background: rgba(230, 178, 128, 0.1);
+            border: 1px solid rgba(230, 178, 128, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent-warm);
+        }
+
+        /* Product Avatar Section styling */
+        .avatar-container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .avatar-image-container {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #232b3c;
+            aspect-ratio: 1 / 1;
+            background: #11141b;
+            box-shadow: 0 0 30px rgba(230, 178, 128, 0.05);
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+            transition: transform 0.5s ease;
+        }
+
+        .avatar-image-container:hover .avatar-img {
+            transform: scale(1.03);
+        }
+
+        .avatar-label {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(230, 178, 128, 0.2);
+            border: 1px solid var(--accent-warm);
+            color: var(--accent-warm);
+            padding: 0.4rem 1rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border-radius: 4px;
+            backdrop-filter: blur(4px);
+        }
+
+        .avatar-text h3 {
+            font-size: 2.2rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .avatar-subtitle {
+            color: var(--accent-warm);
+            font-size: 0.95rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .avatar-prose p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+
+        .avatar-prose p strong {
+            color: var(--text-main);
+            font-weight: 400;
+        }
+
+        /* Narrative Conflict Split Scene */
+        .split-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .split-card {
+            background: var(--bg-light);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid #232b3c;
+        }
+
+        .split-card.world-out {
+            border-top: 4px solid var(--neon-pink);
+        }
+
+        .split-card.world-in {
+            border-top: 4px solid var(--accent-warm);
+        }
+
+        .split-card h3 {
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .world-out h3 { color: var(--neon-pink); }
+        .world-in h3 { color: var(--accent-warm); }
+
+        .split-list {
+            list-style: none;
+        }
+
+        .split-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #232b3c;
+            color: var(--text-muted);
+        }
+
+        .split-list li strong {
+            color: var(--text-main);
+        }
+
+        /* Ecosystem / Extensions Layout */
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .eco-item {
+            background: linear-gradient(145deg, #161a23, #11141b);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #1f2635;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .eco-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-warm);
+        }
+
+        .eco-item h4 {
+            font-weight: 400;
+            letter-spacing: 0.1em;
+        }
+
+        /* Footer */
+        footer {
+            background: #06080c;
+            padding: 4rem 4% 2rem 4%;
+            text-align: center;
+            border-top: 1px solid #161a23;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            header h1 { font-size: 2.5rem; }
+            .split-container { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            section { padding: 4rem 5%; }
+            .avatar-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .story-phase, .story-phase.phase-sanctuary {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .text-right {
+                text-align: left;
+            }
+            .text-right .pleasure-points {
+                justify-content: flex-start;
+            }
+            .story-phase.phase-sanctuary .story-text {
+                order: 2;
+            }
+            .story-phase.phase-sanctuary .story-image-container {
+                order: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">ECHO<span>LIVING</span></div>
+        <div class="nav-links">
+            <a href="#vision">Vision</a>
+            <a href="#story">The Human Narrative</a>
+            <a href="#avatar">Meet ECHO</a>
+            <a href="#conflict">The Tension</a>
+            <a href="#ecosystem">Ecosystem</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>ECHO LIVING</h1>
+        <p>Technology that cares quietly.</p>
+        <div class="scroll-indicator">Scroll to explore the future</div>
+    </header>
+
+    <section id="vision">
+        <h2 class="section-title">The Manifesto</h2>
+        <div class="manifesto-box">
+            <p class="manifesto-text">
+                We built technologies that could predict our behavior, organize our schedules, and connect us to the world. Yet somehow, the more connected we became, the harder it became to disconnect.<br><br>
+                Notifications replaced silence. Productivity replaced presence. Our homes became extensions of the systems that demanded our attention.<br><br>
+                ECHO Living imagines a different future. A future where technology does not compete for attention but protects it. A future where homes understand when we need rest, reflection, and recovery.<br><br>
+                <span class="manifesto-highlight">The next innovation is not faster technology. It is gentler technology.</span>
+            </p>
+        </div>
+    </section>
+
+    <section id="story">
+        <h2 class="section-title">The Human Behind the Narrative</h2>
+        
+        <div class="intro-story-container">
+            <div class="story-phase phase-overload">
+                <div class="story-image-container">
+                    <img src="overload.png" alt="Sofia experiencing chronic digital fatigue in a chaotic office landscape" class="story-img">
+                    <div class="image-overlay-label">THE OUTSIDE WORLD</div>
+                </div>
+                <div class="story-text">
+                    <h3>Meet Sofia Martínez</h3>
+                    <p class="user-meta">29-Year-Old UX Designer • Barcelona</p>
+                    <p class="narrative-prose">
+                        By day, Sofia shapes digital user experiences. By night, she finds herself drowning in them. Surrounded by a relentless web of unread emails, overlapping deadlines, and a constant influx of system notifications, she faces a modern silent crisis: chronic digital overload and cognitive exhaustion. Her physical workspace has completely dissolved the boundaries of her home, leaving her no room to breathe.
+                    </p>
+                    <div class="pain-points">
+                        <span>⚡ 63 Notifications</span>
+                        <span>⚠️ 47 Tasks Pending</span>
+                        <span>🛑 Burnout Threat</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-phase phase-sanctuary">
+                <div class="story-text text-right">
+                    <h3>Step Into Her Sanctuary</h3>
+                    <p class="user-meta-warm">The Quiet Intelligence of ECHO Living</p>
+                    <p class="narrative-prose">
+                        This is where the paradigm shifts. When Sofia returns home, the noisy data ecosystem of the outside world drops away. ECHO Living functions as an ambient emotional guardian embedded within her architecture. There are no intrusive screens or extractive alerts. Instead, soft lighting, calm textures, and natural landscapes adjust to her fatigue level, letting her rest and focus on what truly matters.
+                    </p>
+                    <div class="pleasure-points">
+                        <span>✨ Restorative Architecture</span>
+                        <span>🌿 Natural Elements</span>
+                        <span>🌙 Emotional Recovery</span>
+                    </div>
+                </div>
+                <div class="story-image-container">
+                    <img src="sanctuary.png" alt="Sofia in her calm, protective ECHO Living environment facing nature" class="story-img">
+                    <div class="image-overlay-label warm-label">ECHO SANCTUARY</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="avatar">
+        <h2 class="section-title">Meet ECHO</h2>
+        
+        <div class="avatar-container">
+            <div class="avatar-image-container">
+                <img src="echo_avatar.png" alt="ECHO - Ambient floating intelligence entity representing warmth and emotional presence" class="avatar-img">
+                <div class="avatar-label">SYSTEM IDENTITY</div>
+            </div>
+            <div class="avatar-text">
+                <h3>The Non-Human Guardian</h3>
+                <div class="avatar-subtitle">Ambient Emotional Intelligence</div>
+                <div class="avatar-prose">
+                    <p>
+                        <strong>ECHO is not a virtual assistant, a chatbot, or a productivity tool.</strong> It is an ambient emotional intelligence embedded within the home ecosystem.
+                    </p>
+                    <p>
+                        Rather than competing for attention, ECHO quietly protects it. It does not speak with an invasive voice or flash intrusive status logs onto your walls.
+                    </p>
+                    <p>
+                        By interpreting environmental and emotional signals, ECHO adapts lighting, atmosphere, and sensory conditions to create spaces that support recovery, reflection, and wellbeing. In a world designed to keep people constantly connected, ECHO exists to help them reconnect with themselves.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="audio">
+    <h2 class="section-title">Experience ECHO</h2>
+
+    <div class="manifesto-box">
+        <p class="narrative-prose">
+            Emotional Reset is a 60-second ambient soundscape that
+            represents the transition from digital overstimulation
+            to emotional recovery.
+        </p>
+
+        <audio controls>
+            <source src="ECHO_Emotional_Reset_60s_v4.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+</section>
+
+    <section id="conflict">
+        <h2 class="section-title">The Core Conflict: Always On</h2>
+        <p style="color: var(--text-muted); margin-bottom: 2rem; max-width: 700px;">
+            ECHO Living rebalances how humans live by actively filtering out attention-extractive frameworks.
+        </p>
+        
+        <div class="split-container">
+            <div class="split-card world-out">
+                <h3>What the World Offers </h3>
+                <ul class="split-list">
+                    <li><strong>Features:</strong> Connectivity, Notifications, Productivity, Information</li>
+                    <li><strong>Extracts:</strong> Endless alerts, Attention loops, Digital noise</li>
+                    <li><strong>Blocks:</strong> Deep recovery, Silence, Genuine reflection</li>
+                </ul>
+            </div>
+
+            <div class="split-card world-in">
+                <h3>What ECHO Protects </h3>
+                <ul class="split-list">
+                    <li><strong>Features:</strong> Emotional intelligence, Ambient technology</li>
+                    <li><strong>Encourages:</strong> Restorative rituals, Adaptive environments</li>
+                    <li><strong>Restores:</strong> Personal balance, Safety, Uninterrupted silence</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="ecosystem">
+        <h2 class="section-title">Ecosystem Extensions</h2>
+        <div class="ecosystem-grid">
+            <div class="eco-item"><h4>ECHO Sleep</h4></div>
+            <div class="eco-item"><h4>ECHO Workspace</h4></div>
+            <div class="eco-item"><h4>ECHO Transit</h4></div>
+            <div class="eco-item"><h4>ECHO Habitats</h4></div>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>Project Concept:</strong> ECHO Living — Narrative Business Prototype</p>
+        <p style="font-size: 0.8rem; opacity: 0.7;">
+            Designed utilizing speculative future story worlds and human-AI collaborative design loops. Built with ChatGPT & DALL·E 3 frameworks.
+        </p>
+        <p style="font-size: 0.8rem; margin-top: 1.5rem; border-top: 1px solid #1f2635; padding-top: 1.5rem;">
+            © 2026 Academic Speculative Design Showcase. All rights reserved.
+        </p>
+    </footer>
+
+</body>
+</html>
